@@ -10,11 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
-// import androidx.test.orchestrator.junit.BundleJUnitUtils.getResult
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -22,20 +18,21 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-//import jdk.nashorn.internal.runtime.ECMAException.getException
-//import org.junit.experimental.results.ResultMatchers.isSuccessful
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+    private lateinit var mLastLocation: Location
+    private var mLocationFound: Boolean = false
+
     private lateinit var mDB: WPDataDbHelper
     private var mLocationPermissionGranted: Boolean = false
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
     var PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: Int = 101
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +41,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_maps)
 
         // create database if not already existing
-        mDB = WPDataDbHelper(this)
+        mDB = WPDataDbHelper(this, null, 1)
 
         // check / create permissions
         getLocationPermission()
@@ -53,10 +50,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
 
     }
 
@@ -71,8 +66,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val id = item.getItemId()
 
         if (id == R.id.action_saveWP) {
-            // Toast.makeText(this, "Save Waypoint", Toast.LENGTH_LONG).show()
-            getDeviceLocation()
+
+            // get current position
+            // getDeviceLocation()
+
+            // create current date
+            var date = LocalDateTime.now()
+            var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            var formattedDate = date.format(formatter)
+
+            // save current WP
+            mDB.addWP(formattedDate, 1.0, 1.0)
+            // mDB.addWP(formattedDate, mLastLocation.longitude, mLastLocation.latitude)
+
+            Toast.makeText(this, "Waypoint saved :-)", Toast.LENGTH_LONG).show()
+
             return true
         }
         if (id == R.id.action_listWP) {
@@ -109,17 +117,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.setMyLocationEnabled(true);
         mMap.uiSettings.isMyLocationButtonEnabled = true
 
-        /*
-        if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-        } else {
-            Toast.makeText(this, "No Permission", Toast.LENGTH_LONG).show()
-            ActivityCompat.requestPermissions(this, arrayOf(
-                    ACCESS_FINE_LOCATION),myResult)
-
-        }*/
-
-
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -141,50 +138,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             mFusedLocationProviderClient.lastLocation.addOnSuccessListener {
                 location ->
-
                 if (location != null) {
-                    Toast.makeText(this, "Latitude: " + location.latitude.toBigDecimal().toString(), Toast.LENGTH_LONG).show()
+                    mLocationFound = true
+                    mLastLocation = location
+                    Toast.makeText(this, "Latitude: " + mLastLocation.latitude.toBigDecimal().toString(), Toast.LENGTH_LONG).show()
+                    // mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(mLastLocation.latitude, mLastLocation.longitude)))
+                } else {
+                    mLocationFound = false;
                 }
 
             }
-
-
-
-/*
-                locationResult.addOnCompleteListener(this,
-                    object : OnCompleteListener<Any?> {
-                        fun onComplete(task: Task<*>) {
-                            if (task.isSuccessful) { // Set the map's camera position to the current location of the device.
-                                mLastKnownLocation = task.result
-                                mMap.moveCamera(
-                                    CameraUpdateFactory.newLatLngZoom(
-                                        LatLng(
-                                            mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude()
-                                        ), DEFAULT_ZOOM
-                                    )
-                                )
-                            } else {
-                                Log.d(
-                                    FragmentActivity.TAG,
-                                    "Current location is null. Using defaults."
-                                )
-                                Log.e(FragmentActivity.TAG, "Exception: %s", task.exception)
-                                mMap.moveCamera(
-                                    CameraUpdateFactory.newLatLngZoom(
-                                        mDefaultLocation,
-                                        DEFAULT_ZOOM
-                                    )
-                                )
-                                mMap.uiSettings.isMyLocationButtonEnabled = false
-                            }
-                        }
-                    })
-            }
-
-        } catch (e: SecurityException) {
-            Log.e("Exception: %s", e.message)
-            */
         }
 
     }
