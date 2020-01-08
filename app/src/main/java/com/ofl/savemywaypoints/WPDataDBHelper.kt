@@ -41,6 +41,12 @@ class WPDataDbHelper(context: Context, factory: SQLiteDatabase.CursorFactory?, v
         return db.rawQuery(SQL_SELECT_WP, null)
     }
 
+    fun deleteAllWP(){
+        val thisDB = this.writableDatabase
+
+        thisDB.delete(DBContract.WPData.TABLE_NAME, null,null)
+        thisDB.close()
+    }
     companion object {
         // If you change the database schema, you must increment the database version.
         const val DATABASE_VERSION = 1
@@ -54,7 +60,7 @@ class WPDataDbHelper(context: Context, factory: SQLiteDatabase.CursorFactory?, v
                     "${DBContract.WPData.COLUMN_NAME_LAT} REAL)"
 
         private const val SQL_DROP_TABLE = "DROP TABLE IF EXISTS ${DBContract.WPData.TABLE_NAME}"
-        private const val SQL_SELECT_WP = "SELECT * FROM ${DBContract.WPData.TABLE_NAME} ORDER BY ${DBContract.WPData.COLUMN_NAME_DATE}"
+        private const val SQL_SELECT_WP = "SELECT * FROM ${DBContract.WPData.TABLE_NAME} ORDER BY ${DBContract.WPData.COLUMN_NAME_DATE} DESC"
     }
 
 }

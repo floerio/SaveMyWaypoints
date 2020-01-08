@@ -20,5 +20,9 @@
         app:showAsAction="always"
         android:title="Export waypoints" />
 
-
+    <item
+        android:id="@+id/action_deleteWP"
+        android:icon="@drawable/ic_delete_wp"
+        app:showAsAction="always"
+        android:title="Delete waypoints" />
 </menu>

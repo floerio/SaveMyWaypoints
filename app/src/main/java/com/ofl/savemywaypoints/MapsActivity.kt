@@ -19,6 +19,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -28,8 +29,6 @@ const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-    private lateinit var mLastLocation: Location
-    private var mLocationFound: Boolean = false
 
     private lateinit var mDB: WPDataDbHelper
     private var mLocationPermissionGranted: Boolean = false
@@ -69,19 +68,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         if (id == R.id.action_saveWP) {
 
-            // get current position
-            // getDeviceLocation()
-
-            // create current date
-            var date = LocalDateTime.now()
-            var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            var formattedDate = date.format(formatter)
-
-            // save current WP
-            mDB.addWP(formattedDate, 1.0, 1.0)
-            // mDB.addWP(formattedDate, mLastLocation.longitude, mLastLocation.latitude)
-
-            Toast.makeText(this, "Waypoint saved :-)", Toast.LENGTH_LONG).show()
+            // get current position and save it to db
+            getDeviceLocation()
 
             return true
         }
@@ -94,11 +82,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             Toast.makeText(this, "List Waypoints", Toast.LENGTH_LONG).show()
             return true
         }
+
         if (id == R.id.action_exportWP) {
             Toast.makeText(this, "Export Waypoints", Toast.LENGTH_LONG).show()
             return true
         }
 
+        if (id == R.id.action_deleteWP) {
+            mDB.deleteAllWP()
+            Toast.makeText(this, "Waypoints deleted", Toast.LENGTH_LONG).show()
+            return true
+        }
         return super.onOptionsItemSelected(item)
 
     }
@@ -144,14 +138,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         if (mLocationPermissionGranted) {
 
             mFusedLocationProviderClient.lastLocation.addOnSuccessListener {
-                location ->
+                location : Location? ->
                 if (location != null) {
-                    mLocationFound = true
-                    mLastLocation = location
-                    Toast.makeText(this, "Latitude: " + mLastLocation.latitude.toBigDecimal().toString(), Toast.LENGTH_LONG).show()
+                    var mLong =  location.longitude
+                    var mLat =  location.latitude
+
+                    // create current date
+                    val date = LocalDateTime.now()
+                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                    val formattedDate = date.format(formatter)
+                    mDB.addWP(formattedDate, mLong, mLat)
+                    val dec = DecimalFormat("#,###.00")
+                    Toast.makeText(this, "WP saved: Lon:" + dec.format(mLong) + "  Lat:" + dec.format(mLat), Toast.LENGTH_LONG).show()
                     // mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(mLastLocation.latitude, mLastLocation.longitude)))
-                } else {
-                    mLocationFound = false
                 }
 
             }
@@ -159,11 +158,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    private fun getLocationPermission() { /*
-     * Request location permission, so that we can get the location of the
-     * device. The result of the permission request is handled by a callback,
-     * onRequestPermissionsResult.
-     */
+    private fun getLocationPermission() {
         if (ContextCompat.checkSelfPermission(this.applicationContext,ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true
         } else {
