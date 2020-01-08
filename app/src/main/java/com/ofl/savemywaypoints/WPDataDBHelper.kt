@@ -2,6 +2,7 @@ package com.ofl.savemywaypoints
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
@@ -25,9 +26,9 @@ class WPDataDbHelper(context: Context, factory: SQLiteDatabase.CursorFactory?, v
     fun addWP(date: String, long: Double, lat: Double) {
         val values = ContentValues()
 
-        values.put(DBContract.WPData.COLUMN_NAME_DATE, date);
-        values.put(DBContract.WPData.COLUMN_NAME_LONG, long);
-        values.put(DBContract.WPData.COLUMN_NAME_LAT, lat);
+        values.put(DBContract.WPData.COLUMN_NAME_DATE, date)
+        values.put(DBContract.WPData.COLUMN_NAME_LONG, long)
+        values.put(DBContract.WPData.COLUMN_NAME_LAT, lat)
 
         val thisDB = this.writableDatabase
 
@@ -35,6 +36,10 @@ class WPDataDbHelper(context: Context, factory: SQLiteDatabase.CursorFactory?, v
         thisDB.close()
     }
 
+    fun getAllName(): Cursor? {
+        val db = this.readableDatabase
+        return db.rawQuery(SQL_SELECT_WP, null)
+    }
 
     companion object {
         // If you change the database schema, you must increment the database version.
@@ -49,6 +54,7 @@ class WPDataDbHelper(context: Context, factory: SQLiteDatabase.CursorFactory?, v
                     "${DBContract.WPData.COLUMN_NAME_LAT} REAL)"
 
         private const val SQL_DROP_TABLE = "DROP TABLE IF EXISTS ${DBContract.WPData.TABLE_NAME}"
+        private const val SQL_SELECT_WP = "SELECT * FROM ${DBContract.WPData.TABLE_NAME} ORDER BY ${DBContract.WPData.COLUMN_NAME_DATE}"
     }
 
 }

@@ -1,6 +1,7 @@
 package com.ofl.savemywaypoints
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -22,6 +23,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
+const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -51,7 +53,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         // Construct a FusedLocationProviderClient.
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
     }
 
@@ -84,6 +86,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             return true
         }
         if (id == R.id.action_listWP) {
+            val intent = Intent(this, ListOfWPActivity::class.java).apply {
+                putExtra(EXTRA_MESSAGE, "SCHAU SCHAU")
+            }
+            startActivity(intent)
+
             Toast.makeText(this, "List Waypoints", Toast.LENGTH_LONG).show()
             return true
         }
@@ -114,7 +121,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.setMaxZoomPreference(15.0f)
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.uiSettings.isCompassEnabled = true
-        mMap.setMyLocationEnabled(true);
+        mMap.setMyLocationEnabled(true)
         mMap.uiSettings.isMyLocationButtonEnabled = true
 
     }
@@ -124,7 +131,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mLocationPermissionGranted = true;
+                    mLocationPermissionGranted = true
                 }
             }
         }
@@ -144,7 +151,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     Toast.makeText(this, "Latitude: " + mLastLocation.latitude.toBigDecimal().toString(), Toast.LENGTH_LONG).show()
                     // mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(mLastLocation.latitude, mLastLocation.longitude)))
                 } else {
-                    mLocationFound = false;
+                    mLocationFound = false
                 }
 
             }
