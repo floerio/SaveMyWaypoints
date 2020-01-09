@@ -84,6 +84,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         if (id == R.id.action_exportWP) {
+            exportData()
             Toast.makeText(this, "Export Waypoints", Toast.LENGTH_LONG).show()
             return true
         }
@@ -169,6 +170,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
 
         }
+    }
+
+    private fun exportData() {
+
+        val myFile = GPXFile()
+
+        val wpList = mDB.getAllWPasList()
+
+        myFile.addPoints(wpList)
+
+        val gpxFile = myFile.createFile("Hugo")
+
+        /*
+        intent = Intent(Intent.ACTION_SEND)
+
+        intent.setData(gpxFile)
+
+        startActivity(intent) */
+
+        val shareIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_STREAM, gpxFile.toURI())
+            type = "image/jpeg"
+        }
+        startActivity(Intent.createChooser(shareIntent,"Daten verschicken"))
+
     }
 
 }

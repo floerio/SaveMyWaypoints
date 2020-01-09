@@ -21,8 +21,9 @@ class ListOfWPActivity : AppCompatActivity() {
 
         mListView = findViewById<ListView>(R.id.wp_list_view)
 
-        val list = arrayListOf<WPEntry>()
+
 /*
+
         val wp1 =  WPEntry("Montag", 10.0, 5.0)
         val wp2 =  WPEntry("Dienstag", 20.0, 4.0)
         val wp3 =  WPEntry("Mittwoch", 30.0, 3.0)
@@ -37,6 +38,8 @@ class ListOfWPActivity : AppCompatActivity() {
 
         // val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
 */
+
+        val list = arrayListOf<WPEntry>()
 
         // get the database and all WP data elements
         mDB = WPDataDbHelper(this, null, 1)

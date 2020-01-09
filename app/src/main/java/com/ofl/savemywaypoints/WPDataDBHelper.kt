@@ -41,6 +41,30 @@ class WPDataDbHelper(context: Context, factory: SQLiteDatabase.CursorFactory?, v
         return db.rawQuery(SQL_SELECT_WP, null)
     }
 
+    fun getAllWPasList(): ArrayList<WPEntry>{
+
+        val list = arrayListOf<WPEntry>()
+
+        val cursor = getAllWP()
+
+        with(cursor) {
+            while (moveToNext()) {
+
+                val wp = com.ofl.savemywaypoints.WPEntry(
+                    getString(getColumnIndex(com.ofl.savemywaypoints.DBContract.WPData.COLUMN_NAME_DATE)),
+                    getDouble(getColumnIndex(com.ofl.savemywaypoints.DBContract.WPData.COLUMN_NAME_LONG)),
+                    getDouble(getColumnIndex(com.ofl.savemywaypoints.DBContract.WPData.COLUMN_NAME_LAT))
+                )
+
+                list.add(wp)
+            }
+        }
+
+        cursor.close()
+
+        return list
+    }
+
     fun deleteAllWP(){
         val thisDB = this.writableDatabase
 
