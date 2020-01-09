@@ -36,7 +36,7 @@ class WPDataDbHelper(context: Context, factory: SQLiteDatabase.CursorFactory?, v
         thisDB.close()
     }
 
-    fun getAllName(): Cursor? {
+    fun getAllWP(): Cursor {
         val db = this.readableDatabase
         return db.rawQuery(SQL_SELECT_WP, null)
     }

@@ -149,8 +149,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     val formattedDate = date.format(formatter)
                     mDB.addWP(formattedDate, mLong, mLat)
                     val dec = DecimalFormat("#,###.00")
-                    Toast.makeText(this, "WP saved: Lon:" + dec.format(mLong) + "  Lat:" + dec.format(mLat), Toast.LENGTH_LONG).show()
-                    // mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(mLastLocation.latitude, mLastLocation.longitude)))
+                    Toast.makeText(this, "WP saved: Lon: " + dec.format(mLong) + "  Lat: " + dec.format(mLat), Toast.LENGTH_LONG).show()
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(mLat, mLong)))
                 }
 
             }

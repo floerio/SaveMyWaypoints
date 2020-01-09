@@ -2,63 +2,63 @@ package com.ofl.savemywaypoints
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import java.text.DecimalFormat
+import android.widget.Toast
+import android.graphics.ColorSpace.Model
+import android.net.wifi.WifiManager
+import android.widget.ArrayAdapter
+import android.widget.ListView
+
 
 class ListOfWPActivity : AppCompatActivity() {
 
     private lateinit var mDB: WPDataDbHelper
+    private lateinit var mListView: ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_list_of_wp)
 
-        /*
-        val message = intent.getStringExtra(EXTRA_MESSAGE)
+        mListView = findViewById<ListView>(R.id.wp_list_view)
 
-        // Capture the layout's TextView and set the string as its text
-        val textView = findViewById<TextView>(R.id.textView).apply {
-            text = message
-        }
-        */
-
+        val list = arrayListOf<WPEntry>()
 /*
-        //val textView = findViewById<TextView>(R.id.)
-        //textView.append("\n")
+        val wp1 =  WPEntry("Montag", 10.0, 5.0)
+        val wp2 =  WPEntry("Dienstag", 20.0, 4.0)
+        val wp3 =  WPEntry("Mittwoch", 30.0, 3.0)
+        val wp4 =  WPEntry("Donnerstag", 40.0, 2.0)
+        val wp5 =  WPEntry("Freitag", 50.0,1.0)
 
-        // get the database
+        list.add(wp1)
+        list.add(wp2)
+        list.add(wp3)
+        list.add(wp4)
+        list.add(wp5)
+
+        // val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+*/
+
+        // get the database and all WP data elements
         mDB = WPDataDbHelper(this, null, 1)
+        val cursor = mDB.getAllWP()
 
-        var cursor = mDB.getAllName()
+        with(cursor) {
+            while (moveToNext()) {
 
-        var long: String = ""
-        var lat: String = ""
-        val dec = DecimalFormat("#,###.00")
+                val wp = WPEntry(
+                    getString(getColumnIndex(DBContract.WPData.COLUMN_NAME_DATE)),
+                    getDouble(getColumnIndex(DBContract.WPData.COLUMN_NAME_LONG)),
+                    getDouble(getColumnIndex(DBContract.WPData.COLUMN_NAME_LAT)))
 
-        if (cursor!!.count > 0) {
-            cursor!!.moveToFirst()
-            textView.append((cursor.getString(cursor.getColumnIndex(DBContract.WPData.COLUMN_NAME_DATE))))
-            while (cursor.moveToNext()) {
-
-                // get coordinates
-                long = dec.format(cursor.getDouble(cursor.getColumnIndex(DBContract.WPData.COLUMN_NAME_LONG)))
-                lat = dec.format(cursor.getDouble(cursor.getColumnIndex(DBContract.WPData.COLUMN_NAME_LAT)))
-
-                textView.append((cursor.getString(cursor.getColumnIndex(DBContract.WPData.COLUMN_NAME_DATE))))
-                textView.append(" / ")
-                textView.append(long)
-                textView.append(" / ")
-                textView.append(lat)
-                textView.append("\n")
-
+                list.add(wp)
             }
-        } else {
-            textView.append("Sorry, no data!")
-            textView.append("\n")
         }
 
-         cursor.close()
-*/
+        cursor.close()
+
+        val adapter = WPListAdapter(this, list )
+
+        mListView.adapter = adapter
 
 
     }
