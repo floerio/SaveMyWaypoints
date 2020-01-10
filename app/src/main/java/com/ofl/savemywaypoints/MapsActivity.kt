@@ -4,6 +4,7 @@ import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,6 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -27,6 +30,8 @@ import java.util.*
 const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+
+    private val AUTHORITY = "com.ofl.savemywaypoints.fileprovider"
 
     private lateinit var mMap: GoogleMap
 
@@ -156,7 +161,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             }
         }
-
     }
 
     private fun getLocationPermission() {
@@ -172,15 +176,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    //
+    // Let the user send the data to another application on the phone
+    //
     private fun exportData() {
 
-        val myFile = GPXFile()
-
+        val myFile = GPXFile(this)
         val wpList = mDB.getAllWPasList()
-
         myFile.addPoints(wpList)
+        val fileUri =  myFile.createFile()
 
-        val gpxFile = myFile.createFile("Hugo")
 
         /*
         intent = Intent(Intent.ACTION_SEND)
@@ -189,14 +194,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         startActivity(intent) */
 
-        val shareIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_STREAM, gpxFile.toURI())
-            type = "image/jpeg"
-        }
-        startActivity(Intent.createChooser(shareIntent,"Daten verschicken"))
-
+        val internalFile = myFile.createFile()
+        val contentUri = FileProvider.getUriForFile(applicationContext, AUTHORITY, internalFile!!)
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "text/*"
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.trip_book_share)))
     }
-
 }
 

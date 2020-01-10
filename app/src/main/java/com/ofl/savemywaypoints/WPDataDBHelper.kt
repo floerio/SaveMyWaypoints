@@ -41,6 +41,7 @@ class WPDataDbHelper(context: Context, factory: SQLiteDatabase.CursorFactory?, v
         return db.rawQuery(SQL_SELECT_WP, null)
     }
 
+    // directly create wp list with data from table instead of only returning a cursor
     fun getAllWPasList(): ArrayList<WPEntry>{
 
         val list = arrayListOf<WPEntry>()

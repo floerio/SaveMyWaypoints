@@ -1,10 +1,14 @@
 package com.ofl.savemywaypoints
 
-import java.io.File
+import android.content.Context
+import android.net.Uri
+import androidx.core.net.toUri
+import java.io.*
 
-class GPXFile(){
+class GPXFile(val context: Context){
 
     private val mWPList = arrayListOf<WPEntry>()
+    private val FILE_NAME = "SaveMyWaypoints.gpx"
 
     // add one wp to the internal list
     fun addPoints(pDate: String, pLong: Double, pLat: Double ) {
@@ -18,14 +22,23 @@ class GPXFile(){
         mWPList.addAll(pList)
     }
 
-    fun createFile(pFileName: String): File {
+    //
+    // Create a file with the local WP data
+    fun createFile(): File{
 
-        val gpxFile = File.createTempFile(pFileName,"")
+        var fos: FileOutputStream
 
-        gpxFile.writeText("Hello Wordl")
-        gpxFile.writeText("Hello zweite Welt")
+        try {
+            fos =  context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE)
+            fos.write("HHHHH".toByteArray())
+            fos.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
-        return gpxFile
+        val f = File(FILE_NAME)
+
+        return f
 
     }
 }
