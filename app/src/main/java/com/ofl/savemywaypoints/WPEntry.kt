@@ -1,5 +1,9 @@
 package com.ofl.savemywaypoints
 
+/*
+ Class for DB Table Objects
+ Also creates a GPX Data for one data object
+ */
 class WPEntry(var date: String, var lon: Double, var lat: Double) {
 
     fun getWPAsWaypointEntry(): String {
