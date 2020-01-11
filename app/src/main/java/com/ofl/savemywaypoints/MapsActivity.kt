@@ -22,6 +22,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.lang.Exception
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -184,22 +185,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val myFile = GPXFile(this)
         val wpList = mDB.getAllWPasList()
         myFile.addPoints(wpList)
-        val fileUri =  myFile.createFile()
+        val f =  myFile.createFile()
 
+        try {
+            val contentUri = FileProvider.getUriForFile(this, AUTHORITY, f)
 
-        /*
-        intent = Intent(Intent.ACTION_SEND)
+            val sharingIntent = Intent(Intent.ACTION_SEND)
+            sharingIntent.type = "text/*"
+            sharingIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
+            sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            startActivity(Intent.createChooser(sharingIntent, getString(R.string.trip_book_share)))
 
-        intent.setData(gpxFile)
-
-        startActivity(intent) */
-
-        val internalFile = myFile.createFile()
-        val contentUri = FileProvider.getUriForFile(applicationContext, AUTHORITY, internalFile!!)
-        val sharingIntent = Intent(Intent.ACTION_SEND)
-        sharingIntent.type = "text/*"
-        sharingIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
-        startActivity(Intent.createChooser(sharingIntent, getString(R.string.trip_book_share)))
+        } catch (e: Exception){
+            e.printStackTrace()
+        }
     }
 }
 

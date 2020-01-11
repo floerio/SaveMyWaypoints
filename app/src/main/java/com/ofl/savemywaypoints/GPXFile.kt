@@ -1,9 +1,11 @@
 package com.ofl.savemywaypoints
 
 import android.content.Context
-import android.net.Uri
-import androidx.core.net.toUri
-import java.io.*
+import android.os.Environment
+import android.widget.Toast
+import java.io.File
+import java.io.FileOutputStream
+
 
 class GPXFile(val context: Context){
 
@@ -26,19 +28,37 @@ class GPXFile(val context: Context){
     // Create a file with the local WP data
     fun createFile(): File{
 
-        var fos: FileOutputStream
+        val appDir = context.filesDir
+
+        val fp = File(appDir,"/external_files")
+
+        fp.mkdirs()
+
+        val f = File(fp.toString(), FILE_NAME)
 
         try {
-            fos =  context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE)
-            fos.write("HHHHH".toByteArray())
+            f.createNewFile()
+
+            val fos = FileOutputStream(f)
+            addWPsToFile(fos)
             fos.close()
         } catch (e: Exception) {
             e.printStackTrace()
+            TODO("Signalisieren dass das Erzeugen der Datei fehlgeschlagen ist")
         }
 
-        val f = File(FILE_NAME)
-
         return f
+
+    }
+
+    private fun addWPsToFile(stream: FileOutputStream) {
+
+        stream.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n".toByteArray())
+        stream.write("<gpx version=\"1.1\" creator=\"Ersteller der Datei\">\n".toByteArray())
+        for (wp in mWPList) {
+            stream.write(wp.getWPAsWaypointEntry().toByteArray())
+        }
+        stream.write("</gpx>\n".toByteArray())
 
     }
 }
