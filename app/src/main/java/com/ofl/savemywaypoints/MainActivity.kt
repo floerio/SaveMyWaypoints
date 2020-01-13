@@ -109,9 +109,22 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             Toast.makeText(this, "Waypoints deleted", Toast.LENGTH_LONG).show()
             return true
         }
+
+        //
+        // show the version info screen
+        //
+        if (id == R.id.action_showVersion) {
+            val intent = Intent(this, VersionActivity::class.java).apply {
+                putExtra(EXTRA_MESSAGE, "")
+            }
+            startActivity(intent)
+        }
+
         return super.onOptionsItemSelected(item)
 
     }
+
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.

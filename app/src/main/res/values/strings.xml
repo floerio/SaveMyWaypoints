@@ -4,4 +4,8 @@
     <string name="table_wps_list">wps_list</string>
     <string name="error_happened">Es ging etwas schief :-(</string>
     <string name="save_waypoints">SaveMyWaypoints</string>
+
+    <string name="title_activity_version">VersionActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
