@@ -3,6 +3,7 @@ package com.ofl.savemywaypoints
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
@@ -71,6 +72,14 @@ class WPDataDbHelper(context: Context, factory: SQLiteDatabase.CursorFactory?, v
 
         thisDB.delete(DBContract.WPData.TABLE_NAME, null,null)
         thisDB.close()
+    }
+
+    fun getCount(): Long {
+        val db = this.readableDatabase
+        val count = DatabaseUtils.queryNumEntries(db, DBContract.WPData.TABLE_NAME)
+        db.close()
+
+        return count
     }
     companion object {
         // If you change the database schema, you must increment the database version.

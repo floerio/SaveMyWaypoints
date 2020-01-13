@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\ofl\\AndroidStudioProjects\\SaveMyWaypoints\\keystore\\keystore.jks')
+            storeFile file('../keystore/keystore.jks')
             keyPassword 'keystore01'
             storePassword 'keystore01'
             keyAlias = 'key0'

@@ -3,5 +3,5 @@
     <string name="title_activity_maps">SaveMyWaypoints</string>
     <string name="table_wps_list">wps_list</string>
     <string name="error_happened">Es ging etwas schief :-(</string>
-    <string name="trip_book_share">trip_book_share</string>
+    <string name="save_waypoints">SaveMyWaypoints</string>
 </resources>

@@ -69,29 +69,41 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         // Handle action bar item clicks here.
         val id = item.getItemId()
 
+        //
+        // Save current wp to database
         if (id == R.id.action_saveWP) {
 
             // get current position and save it to db
             getDeviceLocation()
-
             return true
         }
+
+        // create list of current wps
         if (id == R.id.action_listWP) {
             val intent = Intent(this, ListOfWPActivity::class.java).apply {
                 putExtra(EXTRA_MESSAGE, "SCHAU SCHAU")
             }
             startActivity(intent)
-
-            Toast.makeText(this, "List Waypoints", Toast.LENGTH_LONG).show()
             return true
         }
 
+        //
+        // Export data to other application aka "Share"
+        //
         if (id == R.id.action_exportWP) {
-            exportData()
-            Toast.makeText(this, "Export Waypoints", Toast.LENGTH_LONG).show()
+
+            // make sure we have some wps to export
+            if (mDB.getCount() == 0L) {
+                    Toast.makeText(this, "Sorry, no WPs to export so far", Toast.LENGTH_LONG).show()
+            } else {
+                exportData()
+            }
             return true
         }
 
+        //
+        // Clear DB of old wps
+        //
         if (id == R.id.action_deleteWP) {
             mDB.deleteAllWP()
             Toast.makeText(this, "Waypoints deleted", Toast.LENGTH_LONG).show()
@@ -144,8 +156,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             mFusedLocationProviderClient.lastLocation.addOnSuccessListener {
                 location : Location? ->
                 if (location != null) {
-                    var mLong =  location.longitude
-                    var mLat =  location.latitude
+                    val mLong =  location.longitude
+                    val mLat =  location.latitude
 
                     // create current date
                     val date = LocalDateTime.now()
@@ -191,7 +203,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             sharingIntent.type = "text/*"
             sharingIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
             sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            startActivity(Intent.createChooser(sharingIntent, getString(R.string.trip_book_share)))
+            startActivity(Intent.createChooser(sharingIntent, getString(R.string.save_waypoints)))
 
         } catch (e: Exception){
             e.printStackTrace()

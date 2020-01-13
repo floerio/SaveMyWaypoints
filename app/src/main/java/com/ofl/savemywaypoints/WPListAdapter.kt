@@ -38,10 +38,10 @@ class WPListAdapter(private val context: Context, private val dataSource: ArrayL
         theDate.text = wpEntry.date
 
         val theLong = rowView.findViewById(R.id.wp_long) as TextView
-        theLong.text = dec.format(wpEntry.lon)
+        theLong.text = " Long: <" + dec.format(wpEntry.lon) + ">"
 
         val theLat = rowView.findViewById(R.id.wp_lat) as TextView
-        theLat.text = dec.format(wpEntry.lat)
+        theLat.text = " Lat: <" + dec.format(wpEntry.lat) + ">"
 
         return rowView
     }
