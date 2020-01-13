@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         // create list of current wps
         if (id == R.id.action_listWP) {
             val intent = Intent(this, ListOfWPActivity::class.java).apply {
-                putExtra(EXTRA_MESSAGE, "SCHAU SCHAU")
+                putExtra(EXTRA_MESSAGE, "")
             }
             startActivity(intent)
             return true

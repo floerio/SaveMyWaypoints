@@ -22,7 +22,8 @@
 
     <item
         android:id="@+id/action_deleteWP"
-        android:icon="@drawable/ic_delete_wp"
-        app:showAsAction="always"
         android:title="Delete waypoints" />
+    <item
+        android:id="@+id/action_showVersion"
+        android:title="Version" />
 </menu>
