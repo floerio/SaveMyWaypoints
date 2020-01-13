@@ -7,13 +7,16 @@ apply plugin: 'kotlin-android-extensions'
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\ofl\\Keystore\\keystore.jks')
+            storeFile file('../keystore/keystore.jks')
+            keyPassword 'keystore01'
+            storePassword 'keystore01'
+            keyAlias = 'key0'
         }
         debug {
-            keyAlias 'debug'
             keyPassword 'keystore01'
-            storeFile file('../debug.jks')
+            storeFile file('../keystore/keystore.jks')
             storePassword 'keystore01'
+            keyAlias = 'key0'
         }
     }
     compileSdkVersion 28
@@ -41,7 +44,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
