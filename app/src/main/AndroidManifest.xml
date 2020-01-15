@@ -13,12 +13,13 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_ofl"
-        android:label="@string/app_name"
+        android:label="@string/title_launcher"
         android:roundIcon="@mipmap/ic_launcher_ofl_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name=".VersionActivity"
+            android:name=".AboutActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_version"
             android:parentActivityName=".MainActivity"
@@ -28,21 +29,20 @@
                 android:value="com.ofl.savemywaypoints.MainActivity" />
         </activity>
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_maps">
+            android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ListOfWPActivity"
+            android:label="@string/title_activity_wp_list"
+
             android:parentActivityName=".MainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -50,6 +50,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity> <!-- FileProvider - Expose File -->
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.ofl.savemywaypoints.fileprovider"
@@ -59,6 +60,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
     </application>
 
 </manifest>

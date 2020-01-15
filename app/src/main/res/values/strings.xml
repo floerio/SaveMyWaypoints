@@ -1,15 +1,19 @@
 <resources>
-    <string name="app_name">SaveMyWaypoints</string>
-    <string name="title_activity_maps">SaveMyWaypoints</string>
-    <string name="table_wps_list">wps_list</string>
-    <string name="error_happened">Es ging etwas schief :-(</string>
-    <string name="save_waypoints">SaveMyWaypoints</string>
 
-    <string name="title_activity_version">VersionActivity</string>
+    <!-- Strings for activity titles -->
+    <string name="title_launcher">SaveMyWaypoints</string>
+    <string name="title_activity_main"></string>
+    <string name="title_activity_wp_list">Version</string>
+    <string name="title_activity_version">About</string>
+
+    <!-- Strings for activity "about" -->
+    <string name="about_smwp">SaveMyWaypoints</string>
+    <string name="about_version">1.0</string>
+    <string name="about_copyright">Icons made by surang (www.flaticon.com)</string>
+
+
     <string name="dummy_button">Dummy Button</string>
-    <string name="title_smwp">SaveMyWaypoints</string>
-    <string name="title_version">1.0</string>
+    <string name="error_happened">Es ging etwas schief :-(</string>
 
-    <string name="icon_copyright">Icons made by <a href="https://www.flaticon.com/authors/surang" title="surang">surang</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></string>
 
 </resources>

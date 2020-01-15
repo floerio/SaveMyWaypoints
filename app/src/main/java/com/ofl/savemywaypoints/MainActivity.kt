@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         // show the version info screen
         //
         if (id == R.id.action_showVersion) {
-            val intent = Intent(this, VersionActivity::class.java).apply {
+            val intent = Intent(this, AboutActivity::class.java).apply {
                 putExtra(EXTRA_MESSAGE, "")
             }
             startActivity(intent)
@@ -216,7 +216,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             sharingIntent.type = "text/*"
             sharingIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
             sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            startActivity(Intent.createChooser(sharingIntent, getString(R.string.save_waypoints)))
+            startActivity(Intent.createChooser(sharingIntent, getString(R.string.title_activity_main)))
 
         } catch (e: Exception){
             e.printStackTrace()
