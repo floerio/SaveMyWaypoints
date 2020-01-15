@@ -24,6 +24,10 @@
             app:showAsAction="always" />
 
         <item
+            android:id="@+id/action_markWP"
+            android:title="Mark waypoints" />
+
+        <item
             android:id="@+id/action_deleteWP"
             android:title="Delete waypoints" />
     </group>

@@ -18,8 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import java.lang.Exception
 import java.text.DecimalFormat
 import java.time.LocalDateTime
@@ -43,6 +42,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // setup google maps
         setContentView(R.layout.activity_main)
+        setTitle("")
 
         // create database if not already existing
         mDB = WPDataDbHelper(this, null, 1)
@@ -107,6 +107,19 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             return true
         }
 
+        //
+        // Mark current WP on map
+        //
+        if (id == R.id.action_markWP) {
+
+            // make sure we have some wps to export
+            if (mDB.getCount() == 0L) {
+                Toast.makeText(this, "Sorry, no WPs to show so far", Toast.LENGTH_LONG).show()
+            } else {
+                markWPonMap()
+            }
+            return true
+        }
         //
         // Clear DB of old wps
         //
@@ -227,6 +240,34 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         } catch (e: Exception){
             e.printStackTrace()
         }
+    }
+    //
+    // Show current wps on map
+    //
+    private fun markWPonMap() {
+
+        val wpList = mDB.getAllWPasList()
+        val builder = LatLngBounds.Builder()
+
+        for (wp in wpList) {
+            val marker = MarkerOptions().position(LatLng(wp.lat, wp.lon)).title("");
+            marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+            mMap.addMarker(marker)
+            builder.include(marker.position)
+        }
+
+        val bounds = builder.build()
+
+        val width = resources.displayMetrics.widthPixels
+        val height = resources.displayMetrics.heightPixels
+
+        val padding = (height * 0.10).toInt()
+
+        val cu = CameraUpdateFactory.newLatLngBounds(bounds,width, height, padding)
+
+        mMap.animateCamera(cu)
+
+
     }
 }
 
