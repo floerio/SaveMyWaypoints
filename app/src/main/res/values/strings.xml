@@ -3,7 +3,7 @@
     <!-- Strings for activity titles -->
     <string name="title_launcher">SaveMyWaypoints</string>
     <string name="title_activity_main"></string>
-    <string name="title_activity_wp_list">Version</string>
+    <string name="title_activity_wp_list">Your waypoints</string>
     <string name="title_activity_version">About</string>
 
     <!-- Strings for activity "about" -->
@@ -11,9 +11,7 @@
     <string name="about_version">1.0</string>
     <string name="about_copyright">Icons made by surang (www.flaticon.com)</string>
 
-
     <string name="dummy_button">Dummy Button</string>
     <string name="error_happened">Es ging etwas schief :-(</string>
-
 
 </resources>

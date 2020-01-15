@@ -57,11 +57,17 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
+/*
+        NavigationView navigationView = (NavigationView) findViewById(R.id.);
+        NavigationMenuView navMenuView = (NavigationMenuView) navigationView.getChildAt(0);
+        navMenuView.addItemDecoration(new DividerItemDecoration(MainActivity.this,DividerItemDecoration.VERTICAL));
+*/
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.mymenu, menu)
+        menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
@@ -113,7 +119,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         //
         // show the version info screen
         //
-        if (id == R.id.action_showVersion) {
+        if (id == R.id.action_about) {
             val intent = Intent(this, AboutActivity::class.java).apply {
                 putExtra(EXTRA_MESSAGE, "")
             }

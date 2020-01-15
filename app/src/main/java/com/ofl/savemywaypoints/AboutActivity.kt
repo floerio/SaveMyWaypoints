@@ -7,7 +7,7 @@ import android.view.View
 import androidx.core.app.NavUtils
 import android.view.MenuItem
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_version.*
+import kotlinx.android.synthetic.main.activity_about.*
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -23,7 +23,7 @@ class AboutActivity : AppCompatActivity() {
         setContentView(R.layout.activity_about)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // initilize the screen
+        // initialize the screen
         val versionTitle = findViewById<TextView>(R.id.version_swmp) as TextView
         versionTitle.setText(R.string.about_smwp);
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/grp1"
+        android:visible="true">
+        <item
+            android:id="@+id/action_saveWP"
+            android:icon="@drawable/ic_save_data"
+            android:title="Save waypoint"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/action_listWP"
+            android:icon="@drawable/ic_list_wps"
+            android:title="List waypoints"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/action_exportWP"
+            android:icon="@drawable/ic_export_wps"
+            android:title="Export waypoints"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/action_deleteWP"
+            android:title="Delete waypoints" />
+    </group>
+
+    <group
+        android:id="@+id/grp2"
+        android:visible="true">
+        <item
+            android:id="@+id/action_about"
+            android:title="About" />
+    </group>
+</menu>
