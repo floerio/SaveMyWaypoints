@@ -9,4 +9,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="title_smwp">SaveMyWaypoints</string>
     <string name="title_version">1.0</string>
+
+    <string name="icon_copyright">Icons made by <a href="https://www.flaticon.com/authors/surang" title="surang">surang</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></string>
+
 </resources>
