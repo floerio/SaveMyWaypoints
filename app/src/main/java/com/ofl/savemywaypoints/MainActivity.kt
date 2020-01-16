@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -62,20 +63,23 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         // add listener to buttons:
 
         // save wp to database
-        val btSaveWP = findViewById<Button>(R.id.main_bt_saveWP)
+        val btSaveWP = findViewById<ImageButton>(R.id.main_bt_saveWP)
         btSaveWP.setOnClickListener {
             getDeviceLocation()
         }
 
         // mark wps on map
-        val btMarkWP = findViewById<Button>(R.id.main_bt_markWP)
+        val btMarkWP = findViewById<ImageButton>(R.id.main_bt_markWP)
         btMarkWP.setOnClickListener {
             if (mDB.getCount() == 0L) {
                 Toast.makeText(this, "Sorry, no WPs to show so far", Toast.LENGTH_LONG).show()
             } else {
                 markWPonMap()
-            }        }
-        val btShareWP = findViewById<Button>(R.id.main_bt_shareWP)
+            }
+        }
+
+        // mark share wps
+        val btShareWP = findViewById<ImageButton>(R.id.main_bt_shareWP)
         btShareWP.setOnClickListener {
             // make sure we have some wps to export
             if (mDB.getCount() == 0L) {
