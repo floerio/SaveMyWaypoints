@@ -1,71 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AboutActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/about_swmp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="100dp"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/about_swmp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="100dp"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/about_version"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textSize="20sp" />
-
-        <TextView
-                android:id="@+id/about_copyright"
-                android:layout_width= "match_parent"
-                android:layout_height= "wrap_content"
-                android:layout_alignParentBottom= "true"
-                android:gravity="bottom|center_horizontal"
-                android:text="abc"
-                android:layout_marginTop="200dp"
-                android:textSize="12sp" />
-    </LinearLayout>
-
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-    <FrameLayout
+    <TextView
+        android:id="@+id/about_version"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="20sp" />
 
-        <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
+    <TextView
+            android:id="@+id/about_copyright"
+            android:layout_width= "match_parent"
+            android:layout_height= "wrap_content"
+            android:layout_alignParentBottom= "true"
+            android:gravity="bottom|center_horizontal"
+            android:text="abc"
+            android:layout_marginTop="200dp"
+            android:textSize="12sp" />
 
-
-            <Button
-                android:id="@+id/dummy_button"
-                style="?metaButtonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dummy_button" />
-
-        </LinearLayout>
-
-    </FrameLayout>
-
-</FrameLayout>
+</LinearLayout>
