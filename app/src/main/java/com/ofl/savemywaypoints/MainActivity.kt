@@ -20,9 +20,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import java.lang.Exception
+import java.text.DateFormat
 import java.text.DecimalFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.*
 
 const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 
@@ -192,11 +193,16 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     val mLat =  location.latitude
 
                     // create current date
-                    val date = LocalDateTime.now()
-                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                    val formattedDate = date.format(formatter)
-                    mDB.addWP(formattedDate, mLong, mLat)
-                    val dec = DecimalFormat("#,###.00")
+                    val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                    formatter.timeZone = TimeZone.getTimeZone("UTC")
+                    val currentDate = Date()
+                    val dateStr = formatter.format(currentDate)
+
+                    // add wp to database
+                    mDB.addWP(dateStr, mLong, mLat)
+
+                    // print current position with toast
+                    val dec = DecimalFormat("#,###.000")
                     Toast.makeText(this, "WP saved: Lon: " + dec.format(mLong) + "  Lat: " + dec.format(mLat), Toast.LENGTH_LONG).show()
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(mLat, mLong)))
                 }
