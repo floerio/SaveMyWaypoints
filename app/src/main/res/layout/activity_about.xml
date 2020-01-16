@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/version_swmp"
+            android:id="@+id/about_swmp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -21,19 +21,21 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/version_version"
+            android:id="@+id/about_version"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/version_copyright"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textSize="12sp" />
-
+                android:id="@+id/about_copyright"
+                android:layout_width= "match_parent"
+                android:layout_height= "wrap_content"
+                android:layout_alignParentBottom= "true"
+                android:gravity="bottom|center_horizontal"
+                android:text="abc"
+                android:layout_marginTop="200dp"
+                android:textSize="12sp" />
     </LinearLayout>
 
     <!-- This FrameLayout insets its children based on system windows using
@@ -63,7 +65,6 @@
                 android:text="@string/dummy_button" />
 
         </LinearLayout>
-
 
     </FrameLayout>
 

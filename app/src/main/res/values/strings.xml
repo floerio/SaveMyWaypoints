@@ -8,8 +8,8 @@
 
     <!-- Strings for activity "about" -->
     <string name="about_smwp">SaveMyWaypoints</string>
-    <string name="about_version">1.0</string>
-    <string name="about_copyright">Icons made by surang (www.flaticon.com)</string>
+    <string name="about_current_version">1.1</string>
+    <string name="about_copyright">Launcher icon made by surang (www.flaticon.com)</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="error_happened">Es ging etwas schief :-(</string>
