@@ -7,6 +7,7 @@ import android.location.Location
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -58,6 +59,32 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
+        // add listener to buttons:
+
+        // save wp to database
+        val btSaveWP = findViewById<Button>(R.id.main_bt_saveWP)
+        btSaveWP.setOnClickListener {
+            getDeviceLocation()
+        }
+
+        // mark wps on map
+        val btMarkWP = findViewById<Button>(R.id.main_bt_markWP)
+        btMarkWP.setOnClickListener {
+            if (mDB.getCount() == 0L) {
+                Toast.makeText(this, "Sorry, no WPs to show so far", Toast.LENGTH_LONG).show()
+            } else {
+                markWPonMap()
+            }        }
+        val btShareWP = findViewById<Button>(R.id.main_bt_shareWP)
+        btShareWP.setOnClickListener {
+            // make sure we have some wps to export
+            if (mDB.getCount() == 0L) {
+                Toast.makeText(this, "Sorry, no WPs to export so far", Toast.LENGTH_LONG).show()
+            } else {
+                exportData()
+            }
+        }
+
 /*
         NavigationView navigationView = (NavigationView) findViewById(R.id.);
         NavigationMenuView navMenuView = (NavigationMenuView) navigationView.getChildAt(0);
@@ -76,14 +103,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         // Handle action bar item clicks here.
         val id = item.getItemId()
 
-        //
-        // Save current wp to database
-        if (id == R.id.action_saveWP) {
-
-            // get current position and save it to db
-            getDeviceLocation()
-            return true
-        }
 
         // create list of current wps
         if (id == R.id.action_listWP) {
@@ -94,33 +113,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             return true
         }
 
-        //
-        // Export data to other application aka "Share"
-        //
-        if (id == R.id.action_exportWP) {
-
-            // make sure we have some wps to export
-            if (mDB.getCount() == 0L) {
-                    Toast.makeText(this, "Sorry, no WPs to export so far", Toast.LENGTH_LONG).show()
-            } else {
-                exportData()
-            }
-            return true
-        }
-
-        //
-        // Mark current WP on map
-        //
-        if (id == R.id.action_markWP) {
-
-            // make sure we have some wps to export
-            if (mDB.getCount() == 0L) {
-                Toast.makeText(this, "Sorry, no WPs to show so far", Toast.LENGTH_LONG).show()
-            } else {
-                markWPonMap()
-            }
-            return true
-        }
         //
         // Clear DB of old wps
         //

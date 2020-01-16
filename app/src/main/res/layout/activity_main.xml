@@ -25,12 +25,28 @@
         android:fitsSystemWindows="true">
 
         <Button
-            android:id="@+id/dummy_button"
+            android:id="@+id/main_bt_saveWP"
             style="?metaButtonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/dummy_button" />
+            android:gravity="left"
+            android:text="@string/main_bt_saveWP" />
+
+        <Button
+            android:id="@+id/main_bt_markWP"
+            style="?metaButtonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/main_bt_saveWP"
+            android:text="@string/main_bt_markWP" />
+
+        <Button
+            android:id="@+id/main_bt_shareWP"
+            style="?metaButtonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/main_bt_markWP"
+            android:text="@string/main_bt_shareWP" />
 
     </RelativeLayout>
 

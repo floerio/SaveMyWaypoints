@@ -11,7 +11,11 @@
     <string name="about_current_version">1.1</string>
     <string name="about_copyright">Launcher icon made by surang (www.flaticon.com)</string>
 
-    <string name="dummy_button">Dummy Button</string>
+    <!-- Strings for activity main -->
+    <string name="main_bt_saveWP">SAVE</string>
+    <string name="main_bt_markWP">MARK</string>
+    <string name="main_bt_shareWP">SHARE</string>
+
     <string name="error_happened">Es ging etwas schief :-(</string>
 
 </resources>
