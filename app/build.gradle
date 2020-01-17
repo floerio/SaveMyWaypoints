@@ -6,15 +6,9 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     signingConfigs {
-        release {
+        defaultConfig{
             storeFile file('../keystore/keystore.jks')
             keyPassword 'keystore01'
-            storePassword 'keystore01'
-            keyAlias = 'key0'
-        }
-        debug {
-            keyPassword 'keystore01'
-            storeFile file('../keystore/keystore.jks')
             storePassword 'keystore01'
             keyAlias = 'key0'
         }
@@ -24,8 +18,8 @@ android {
     defaultConfig {
         applicationId "com.ofl.savemywaypoints"
         minSdkVersion 24
-        targetSdkVersion 26
-        versionCode 2
+        targetSdkVersion 28
+        versionCode 3
         versionName '1.1.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
