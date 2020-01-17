@@ -26,7 +26,7 @@ class AboutActivity : AppCompatActivity() {
         versionTitle.setText(R.string.about_smwp);
 
         val versionVersion = findViewById<TextView>(R.id.about_version) as TextView
-        versionVersion.setText("Version: " + getString(R.string.about_current_version));
+        versionVersion.setText("Version: " + BuildConfig.VERSION_NAME);
 
         val versionCopyright = findViewById<TextView>(R.id.about_copyright) as TextView
         versionCopyright.setText(R.string.about_copyright);
