@@ -18,27 +18,28 @@
         tools:context=".MainActivity"
         tools:layout="@layout/activity_main"></fragment>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="3"
+        android:layout_height="100dp"
+        android:layout_gravity="fill_vertical"
+        android:layout_weight="4"
         android:background="#216635"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:padding="5dp">
 
         <ImageButton
             android:id="@+id/main_bt_saveWP"
             style="@android:style/Widget.Holo.ImageButton"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:gravity="start"
             app:srcCompat="@drawable/ic_save_data" />
 
         <ImageButton
             android:id="@+id/main_bt_markWP"
             style="@android:style/Widget.Holo.ImageButton"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_toEndOf="@id/main_bt_saveWP"
             android:contentDescription="TODO"
             app:srcCompat="@android:drawable/ic_menu_slideshow" />
@@ -46,11 +47,11 @@
         <ImageButton
             android:id="@+id/main_bt_shareWP"
             style="@android:style/Widget.Holo.ImageButton"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_toEndOf="@id/main_bt_markWP"
             app:srcCompat="@android:drawable/ic_menu_share" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
