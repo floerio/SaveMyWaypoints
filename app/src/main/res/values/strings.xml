@@ -2,7 +2,7 @@
 
     <!-- Strings for activity titles -->
     <string name="title_launcher">SaveMyWaypoints</string>
-    <string name="title_activity_main"></string>
+    <string name="title_activity_main">SaveMyWaypoints</string>
     <string name="title_activity_wp_list">Your waypoints</string>
     <string name="title_activity_version">About</string>
 

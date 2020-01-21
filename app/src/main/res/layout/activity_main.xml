@@ -18,21 +18,24 @@
         tools:context=".MainActivity"
         tools:layout="@layout/activity_main"></fragment>
 
+    <!-- android:background="#216635" -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_gravity="fill_vertical"
         android:layout_weight="4"
-        android:background="#216635"
         android:fitsSystemWindows="true"
-        android:padding="5dp">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:theme="@style/Base.Theme.AppCompat.Light">
 
         <ImageButton
             android:id="@+id/main_bt_saveWP"
             style="@android:style/Widget.Holo.ImageButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:gravity="start"
+            android:gravity="left"
             app:srcCompat="@drawable/ic_save_data" />
 
         <ImageButton
@@ -42,6 +45,7 @@
             android:layout_height="60dp"
             android:layout_toEndOf="@id/main_bt_saveWP"
             android:contentDescription="TODO"
+            android:gravity="center"
             app:srcCompat="@android:drawable/ic_menu_slideshow" />
 
         <ImageButton
@@ -50,6 +54,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_toEndOf="@id/main_bt_markWP"
+            android:gravity="right"
             app:srcCompat="@android:drawable/ic_menu_share" />
 
     </LinearLayout>

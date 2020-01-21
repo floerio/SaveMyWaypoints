@@ -1,6 +1,7 @@
 package com.ofl.savemywaypoints
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.app.ActionBar
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // setup google maps
         setContentView(R.layout.activity_main)
-        setTitle("")
+        setTitle(R.string.title_activity_main)
 
         // create database if not already existing
         mDB = WPDataDbHelper(this, null, 1)
@@ -60,7 +61,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
+        //
         // add listener to buttons:
+        //
 
         // save wp to database
         val btSaveWP = findViewById<ImageButton>(R.id.main_bt_saveWP)
@@ -88,12 +91,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 exportData()
             }
         }
-
-/*
-        NavigationView navigationView = (NavigationView) findViewById(R.id.);
-        NavigationMenuView navMenuView = (NavigationMenuView) navigationView.getChildAt(0);
-        navMenuView.addItemDecoration(new DividerItemDecoration(MainActivity.this,DividerItemDecoration.VERTICAL));
-*/
 
     }
 
