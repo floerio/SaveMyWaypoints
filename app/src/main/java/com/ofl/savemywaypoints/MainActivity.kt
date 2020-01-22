@@ -2,6 +2,7 @@ package com.ofl.savemywaypoints
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.app.ActionBar
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -11,6 +12,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -118,8 +120,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         // Clear DB of old wps
         //
         if (id == R.id.action_deleteWP) {
-            mDB.deleteAllWP()
-            Toast.makeText(this, "Waypoints deleted", Toast.LENGTH_LONG).show()
+            deleteEntries()
             return true
         }
 
@@ -267,6 +268,27 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.animateCamera(cu)
 
 
+    }
+
+    private fun deleteEntries() {
+
+        val builder = AlertDialog.Builder(this);
+
+        builder.setTitle("Please confirm!");
+        builder.setMessage("You are about to delete all current waypoints.\n\nDo you really want to proceed ?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes") { dialog, which ->
+            mDB.deleteAllWP()
+            Toast.makeText(this, "Waypoints deleted", Toast.LENGTH_LONG).show()
+        }
+        builder.setNegativeButton("No") { dialog, which ->
+            Toast.makeText(this, "No Waypoints deleted :-)", Toast.LENGTH_LONG).show()
+        }
+        // Finally, make the alert dialog using builder
+        val dialog: AlertDialog = builder.create()
+
+        // Display the alert dialog on app interface
+        dialog.show()
     }
 }
 
