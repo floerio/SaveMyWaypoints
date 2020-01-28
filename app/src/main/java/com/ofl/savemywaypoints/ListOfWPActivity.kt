@@ -39,11 +39,14 @@ class ListOfWPActivity : AppCompatActivity() {
         // val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
 */
 
-        val list = arrayListOf<WPEntry>()
+        // val list = arrayListOf<WPEntry>()
 
         // get the database and all WP data elements
         mDB = WPDataDbHelper(this, null, 1)
-        val cursor = mDB.getAllWP()
+
+
+/*
+val cursor = mDB.getAllWP()
 
         with(cursor) {
             while (moveToNext()) {
@@ -56,8 +59,12 @@ class ListOfWPActivity : AppCompatActivity() {
                 list.add(wp)
             }
         }
-
         cursor.close()
+
+*/
+
+
+        val list = mDB.getAllWPasList()
 
         val adapter = WPListAdapter(this, list )
 

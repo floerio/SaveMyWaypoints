@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import java.text.DecimalFormat
 
 class WPListAdapter(private val context: Context, private val dataSource: ArrayList<WPEntry>): BaseAdapter() {
@@ -43,6 +45,10 @@ class WPListAdapter(private val context: Context, private val dataSource: ArrayL
         val theLat = rowView.findViewById(R.id.wp_lat) as TextView
         theLat.text = " Lat: <" + dec.format(wpEntry.lat) + ">"
 
+        val myButton = rowView.findViewById(R.id.wp_button_delete) as Button
+        myButton.setOnClickListener{
+            Toast.makeText(context, "Pressed " + wpEntry.date , Toast.LENGTH_LONG).show()
+        }
         return rowView
     }
 }
