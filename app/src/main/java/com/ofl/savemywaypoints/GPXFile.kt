@@ -13,8 +13,8 @@ class GPXFile(val context: Context){
     private val FILE_NAME = "SaveMyWaypoints.gpx"
 
     // add one wp to the internal list
-    fun addPoints(pDate: String, pLong: Double, pLat: Double ) {
-        val wp = com.ofl.savemywaypoints.WPEntry(pDate, pLong, pLat)
+    fun addPoints(pId: Int, pDate: String, pLong: Double, pLat: Double ) {
+        val wp = com.ofl.savemywaypoints.WPEntry(pId, pDate, pLong, pLat)
 
         mWPList.add(wp)
     }

@@ -53,6 +53,7 @@ class WPDataDbHelper(context: Context, factory: SQLiteDatabase.CursorFactory?, v
             while (moveToNext()) {
 
                 val wp = com.ofl.savemywaypoints.WPEntry(
+                    getInt(getColumnIndex("_id")),
                     getString(getColumnIndex(com.ofl.savemywaypoints.DBContract.WPData.COLUMN_NAME_DATE)),
                     getDouble(getColumnIndex(com.ofl.savemywaypoints.DBContract.WPData.COLUMN_NAME_LONG)),
                     getDouble(getColumnIndex(com.ofl.savemywaypoints.DBContract.WPData.COLUMN_NAME_LAT))
@@ -67,6 +68,13 @@ class WPDataDbHelper(context: Context, factory: SQLiteDatabase.CursorFactory?, v
         return list
     }
 
+    fun deleteWPById(_id: Int){
+        val thisDB = this.writableDatabase
+
+        thisDB.delete(DBContract.WPData.TABLE_NAME, "_id = " + _id.toString(),null)
+
+        thisDB.close()
+    }
     fun deleteAllWP(){
         val thisDB = this.writableDatabase
 

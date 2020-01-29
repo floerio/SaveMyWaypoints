@@ -8,7 +8,7 @@
 
     <!-- Strings for activity "about" -->
     <string name="about_smwp">SaveMyWaypoints</string>
-    <string name="about_copyright">Launcher icon made by surang (www.flaticon.com)</string>
+    <string name="about_copyright">Icons made by surang and kiranshastry (www.flaticon.com)</string>
 
     <!-- Strings for activity main -->
     <string name="main_bt_saveWP">SAVE</string>
